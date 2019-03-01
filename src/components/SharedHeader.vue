@@ -24,8 +24,15 @@ header {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 100px;
+    height: 50px;
     background-color: #feca57;
+}
+.logo {
+    display: flex;
+    margin-right: auto;
+    align-items: center;
+    height: 100%;
+    padding-left: 10px;
 }
 ul {
     display: flex;

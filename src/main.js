@@ -2,8 +2,20 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import firebase from "firebase";
 
 Vue.config.productionTip = false;
+
+const config = {
+  apiKey: "AIzaSyDOWyQAnUmNLPxKlWrrB8N3qj04kGVAfog",
+  authDomain: "welldone-21fc5.firebaseapp.com",
+  databaseURL: "https://welldone-21fc5.firebaseio.com",
+  projectId: "welldone-21fc5",
+  storageBucket: "welldone-21fc5.appspot.com",
+  messagingSenderId: "1004401477630"
+};
+
+firebase.initializeApp(config);
 
 new Vue({
   router,
