@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-import firebase from "firebase";
 import HelloWorld from "@/components/HelloWorld";
 import Signup from "@/components/Signup";
 import Signin from "@/components/Signin";
+import firebase from "firebase";
 
 Vue.use(Router);
 
@@ -12,34 +12,34 @@ let router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '*',
-      redirect: 'signin'
+      path: "*",
+      redirect: "signIn"
     },
     {
       path: "/",
       name: "HelloWorld",
       component: HelloWorld,
-      meta: { requiresAuth: true}
-    },
-    {
-      path: "/signin",
-      name: "signin",
-      component: Signin
+      meta: { requiresAuth: true }
     },
     {
       path: "/signup",
-      name: "singnup",
+      name: "Signup",
       component: Signup
+    },
+    {
+      path: "/signin",
+      name: "Signin",
+      component: Signin
     }
   ]
 });
 
-Router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   let currentUser = firebase.auth().currentUser;
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   if (requiresAuth && !currentUser) next("signin");
   else if (!requiresAuth && currentUser) next();
   else next();
-})
+});
 
 export default router;

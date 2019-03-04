@@ -4,6 +4,8 @@ import router from "./router";
 import store from "./store";
 import firebase from "firebase";
 
+let app;
+
 Vue.config.productionTip = false;
 
 const config = {
@@ -17,8 +19,12 @@ const config = {
 
 firebase.initializeApp(config);
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");
+firebase.auth().onAuthStateChanged(user => {
+  if (!app) {
+    new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount("#app");
+  }
+});

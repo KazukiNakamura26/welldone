@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      name: firebase.suth().currentUser.email
+      name: firebase.auth().currentUser.email
     }
   },
   methods: {
@@ -30,9 +30,13 @@ export default {
     apiPublic: async function () {
       let res = await axios.get('http://localhost:8000/public')
       this.msg = res.data
+      jwtToken = firebase.auth().currentUser.getIdToken(true)
+      console.log(jwtToken)
     },
     apiPrivate: async function () {
-      let res = await axios.get('http://localhost:8000/private')
+      let res = await axios.get('http://localhost:8000/private', {
+      headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
+      })
       this.msg = res.data
     }
   }

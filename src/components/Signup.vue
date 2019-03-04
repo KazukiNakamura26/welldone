@@ -1,35 +1,34 @@
 <template>
-  <div class="signup">
-    <h2>Sign up</h2>
-    <input type="text" placeholder="Username" v-model="email">
-    <input type="password" placeholder="Password" v-model="password">
-    <button @click="signup">Register</button>
-    <p>Do you have an account?
-      <router-link to="/signin">sign in now!!</router-link>
-    </p>
-  </div>
+    <div class="signup">
+        <h2>Sign up</h2>
+        <input type="text" placeholder="Username" v-model="email">
+        <input type="password" placeholder="Password" v-model="password">
+        <button @click=signUp>Register</button>
+        <p>Do you have an account?
+            <router-link to="/signin">sign in now!!</router-link>
+        </p>
+    </div>
 </template>
 
 <script>
 import firebase from 'firebase'
 export default {
-  name: 'Signup',
-  data () {
-    return {
-      email: '',
-      password: ''
+    name: 'Signup',
+    data () {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        signUp: function () {
+            firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(res => {
+                console.log('Create account: ', res.user.email)
+            }).catch (error => {
+                console.log(error.message)
+            })
+        }
     }
-  },
-  methods: {
-      signUp: function () {
-          firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(res => {
-              localStrage.setItem('jwt', res.user.qa)
-              this.$router.push('/')
-          }, err => {
-              alert(err.message)
-          })
-      }
-  }
 }
 </script>
 
