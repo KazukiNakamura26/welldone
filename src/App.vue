@@ -1,32 +1,38 @@
 <template>
-  <div id="app">
-    <SharedHeader />
-    <router-view />
-    <SharedFooter />
-  </div>
+  <v-app>
+    <v-toolbar app>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Well</span>
+        <span class="font-weight-light">done</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        flat
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+      >
+        <span class="mr-2">Latest Release</span>
+      </v-btn>
+    </v-toolbar>
+
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import 'normalize.css'
-import SharedHeader from './components/SharedHeader.vue'
-import SharedFooter from './components/SharedFooter.vue'
+import HelloWorld from './components/TopPage'
+
 export default {
   name: 'App',
   components: {
-    SharedHeader,
-    SharedFooter
+    HelloWorld
+  },
+  data () {
+    return {
+      //
+    }
   }
 }
 </script>
-
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  height: 100%;
-}
-
-</style>

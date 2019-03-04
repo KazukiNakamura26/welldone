@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import HelloWorld from "@/components/HelloWorld";
+import TopPage from "@/components/TopPage";
 import Signup from "@/components/Signup";
 import Signin from "@/components/Signin";
 import firebase from "firebase";
@@ -17,8 +17,8 @@ let router = new Router({
     },
     {
       path: "/",
-      name: "HelloWorld",
-      component: HelloWorld,
+      name: "TopPage",
+      component: TopPage,
       meta: { requiresAuth: true }
     },
     {

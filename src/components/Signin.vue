@@ -5,7 +5,7 @@
         <input type="password" placeholder="Password" v-model="password">
         <button @click="signIn">Signin</button>
         <p>You don't have an account?
-            <router-link to="/signup"></router-link>
+            <router-link to="/signup">create account now!!</router-link>
         </p>
     </div>
 </template>

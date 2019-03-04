@@ -24,6 +24,12 @@ export default {
         signUp: function () {
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(res => {
                 console.log('Create account: ', res.user.email)
+                firebase.auth().signInWithEmailAndPassword(this.email,this.password).then(r => {
+                  r.user.getIdToken().then(idToken => {
+                    localStorage.setItem('jwt', idToken.toString())
+                  })
+                  this.$router.push('/')
+                })
             }).catch (error => {
                 console.log(error.message)
             })
