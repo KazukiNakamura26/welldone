@@ -1,20 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Well</span>
-        <span class="font-weight-light">done</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
+    <SharedHeader />
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -23,16 +9,25 @@
 
 <script>
 import HelloWorld from './components/TopPage'
-
+import SharedHeader from '@/components/SharedHeader'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    SharedHeader
   },
   data () {
     return {
-      //
     }
   }
 }
 </script>
+<style>
+body{
+    height:100%;
+    overflow-y:auto;
+}
+body::-webkit-scrollbar{
+    display:none;
+}
+</style>
