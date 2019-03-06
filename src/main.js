@@ -18,7 +18,9 @@ const config = {
   messagingSenderId: "1004401477630"
 };
 
+const settings = { timestampsInSnapshots: true };
 firebase.initializeApp(config);
+firebase.firestore().settings(settings);
 
 firebase.auth().onAuthStateChanged( user => {
   if (!app) {

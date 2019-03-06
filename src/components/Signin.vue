@@ -1,23 +1,66 @@
 <template>
     <div class="signin">
-        <h2>Sign in</h2>
-        <input type="text" placeholder="email" v-model="email">
-        <input type="password" placeholder="Password" v-model="password">
-        <button @click="signIn">Signin</button>
-        <p>You don't have an account?
-            <router-link to="/signup">create account now!!</router-link>
-        </p>
+      <v-container>
+        <h2 class="font-weight-bold text-xs-center">SIGN IN</h2>
+
+        <v-layout justify-center>
+          <v-flex xs12 sm6 md3>
+            <v-form
+              v-model="valid"
+              ref="form"
+              lazy-validation
+            >
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                label="メールアドレス"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="password"
+                type="password"
+                :rules="passwordRules"
+                label="パスワード"
+                required
+              ></v-text-field>
+              <p class="caption red--text text-xs-center" v-if="error">{{ error }}</p>
+              <div class="text-xs-center">
+                <v-btn
+                  :disabled="!valid"
+                  outline
+                  large
+                  class="amber lighten-1 white--text font-weight-bold"
+                  @click="signIn">SIGN IN</v-btn>
+              </div>
+            </v-form>
+              <p class="text-xs-center">
+                アカウントを持っていない方は
+                  <router-link to="/signup">こちら</router-link>
+              </p>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </div>
 </template>
 
 <script>
 import firebase from 'firebase'
+import errors from '@/mixins/ErrMixin'
 export default {
+    mixins: [errors],
     name: 'Signin',
     data: function () {
         return {
+            valid: false,
+            error: null,
             email: '',
-            password: ''
+            emailRules: [
+              v => /.+@.+/.test(v) || '正しいメールアドレス形式で入力して下さい。'
+            ],
+            password: '',
+            passwordRules: [
+               v => !!v || 'パスワードは必須です。'
+            ]
         }
     },
     methods: {
@@ -28,41 +71,13 @@ export default {
           })
           this.$router.push('/')
         }, err => {
-          alert(err.message)
+          if (err.code === errors.data().errors[0].code) {
+            this.error = errors.data().errors[0].message
+          } else {
+            this.error = errors.data().errors[1].message
+          }
         })
       }
     }
 }
 </script>
-
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-.signin {
-  margin-top: 20px;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center
-}
-input {
-  margin: 10px 0;
-  padding: 10px;
-}
-button {
-  margin: 10px 0;
-  padding: 10px;
-}
-</style>
