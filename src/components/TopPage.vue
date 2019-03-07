@@ -6,7 +6,7 @@
     >
       <v-flex mb-4>
         <h1 class='display-2 mb-3'>
-          隣の人を褒めよう！
+          隣の人を褒めよう！<span>{{ name }}</span>
         </h1>
       </v-flex>
 
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      name: 'firebase.auth().currentUser.email'
+      name: ''
     }
   },
   methods: {
@@ -41,16 +41,26 @@ export default {
       })
     },
     apiPublic: async function () {
-      let res = await axios.get('http://localhost:8000/public')
+      let res = await axios.get('https://welldone-api.herokuapp.com/public')
       this.msg = res.data
     },
     apiPrivate: async function() {
-      let res = await axios.get('http://localhost:8000/private', {
+      let res = await axios.get('https://welldone-api.herokuapp.com/private', {
         headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
       })
-      this.msg = res.data
+      this.name = res.data
       }
 
+  },
+  async created() {
+    try {
+      let res = await axios.get("https://welldone-api.herokuapp.com/private", {
+        headers: {'Authorization' : `Bearer ${localStorage.getItem('jwt')}`}
+      })
+      this.name = res.data
+    } catch(e) {
+      console.error(e)
+    }
   }
 }
 </script>
