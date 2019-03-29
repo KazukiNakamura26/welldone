@@ -41,11 +41,11 @@ export default {
       })
     },
     apiPublic: async function () {
-      let res = await axios.get('http://localhost:3030/public')
+      let res = await axios.get('https://welldone-staging-api/public')
       this.msg = res.data
     },
     apiPrivate: async function() {
-      let res = await axios.get('http://localhost:3030/private', {
+      let res = await axios.get('https://welldone-staging-api/private', {
         headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
       }).then(res => (this.result = res.data))
       console.log(this.result)
@@ -54,7 +54,7 @@ export default {
   },
   async created() {
     try {
-      await axios.get("http://localhost:3030/private", {
+      await axios.get("https://welldone-staging-api/private", {
         headers: {'Authorization' : `Bearer ${localStorage.getItem('jwt')}`}
       }).then(res => (this.result = res.data))
       console.log(this.result)
