@@ -51,14 +51,26 @@
 <script>
 export default {
 		name: 'SharedHeader',
+
 		data () {
 			return {
 				drawer: null,
+				result: "",
 				items: [
-					{ title: 'Home', icon: 'dashboard', tolink: '/'},
-					{ title: 'About', icon: 'question_answer', tolink: '/about'}
+					{ title: this.result, icon: 'dashboard', tolink: '/mypage'},
+					{ title: 'Projects', icon: 'question_answer', tolink: '/projects'}
 				]
 			}
 		}
+		async created() {
+    try {
+      await axios.get("https://welldone-api.herokuapp.com/private", {
+        headers: {'Authorization' : `Bearer ${localStorage.getItem('jwt')}`}
+      }).then(res => (this.result = res.data))
+      console.log(this.result)
+    } catch(e) {
+      console.error(e)
+    }
+  }
 }
 </script>
