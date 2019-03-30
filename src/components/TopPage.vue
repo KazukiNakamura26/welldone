@@ -6,7 +6,7 @@
     >
       <v-flex mb-4>
         <h1 class='display-2 mb-3'>
-          隣の人を褒めよう！<span>{{ result.name }}</span>
+          隣の人を褒めよう！<span>{{result.name}}</span>
         </h1>
       </v-flex>
 
@@ -29,7 +29,6 @@ export default {
   name: 'TopPage',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
       result: ''
     }
   },

@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
 		name: 'SharedHeader',
 
@@ -57,11 +58,11 @@ export default {
 				drawer: null,
 				result: "",
 				items: [
-					{ title: this.result, icon: 'dashboard', tolink: '/mypage'},
+					{ title: this.result.name, icon: 'dashboard', tolink: '/mypage'},
 					{ title: 'Projects', icon: 'question_answer', tolink: '/projects'}
 				]
 			}
-		}
+		},
 		async created() {
     try {
       await axios.get("https://welldone-api.herokuapp.com/private", {
