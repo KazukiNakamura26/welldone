@@ -61,7 +61,7 @@ export default {
 					{ title: 'Projects', icon: 'question_answer', tolink: '/projects'}
 				]
 			}
-		}
+		},
 		async created() {
     try {
       await axios.get("https://welldone-api.herokuapp.com/private", {
