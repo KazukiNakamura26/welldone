@@ -6,7 +6,7 @@
     >
       <v-flex mb-4>
         <h1 class='display-2 mb-3'>
-          隣の人を褒めよう！<span>{{ name }}</span>
+          隣の人を褒めよう！<span>{{ result.name }}</span>
         </h1>
       </v-flex>
 
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      name: ''
+      result: ''
     }
   },
   methods: {
@@ -47,17 +47,17 @@ export default {
     apiPrivate: async function() {
       let res = await axios.get('https://welldone-api.herokuapp.com/private', {
         headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
-      })
-      this.name = res.data
+      }).then(res => (this.result = res.data))
+      console.log(this.result)
       }
 
   },
   async created() {
     try {
-      let res = await axios.get("https://welldone-api.herokuapp.com/private", {
+      await axios.get("https://welldone-api.herokuapp.com/private", {
         headers: {'Authorization' : `Bearer ${localStorage.getItem('jwt')}`}
-      })
-      this.name = res.data
+      }).then(res => (this.result = res.data))
+      console.log(this.result)
     } catch(e) {
       console.error(e)
     }
