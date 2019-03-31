@@ -3,6 +3,10 @@ import Router from "vue-router";
 import TopPage from "@/components/TopPage";
 import Signup from "@/components/Signup";
 import Signin from "@/components/Signin";
+import Mypage from "@/components/Mypage";
+import ProjectPage from "@/components/ProjectPage";
+import Praise from "@/components/Praise";
+import PraiseDone from "@/components/PraiseDone";
 import firebase from "firebase";
 
 Vue.use(Router);
@@ -30,6 +34,26 @@ let router = new Router({
       path: "/signin",
       name: "Signin",
       component: Signin
+    },
+    {
+      path: "/mypage",
+      name: "Mypage",
+      component: Mypage
+    },
+    {
+      path: "/project/:project_id",
+      name: "ProjectPage",
+      component: ProjectPage
+    },
+    {
+      path: "/project/:project_id/praise",
+      name: "Praise",
+      component: Praise
+    },
+    {
+      path: "/project/:project_id/praise/:message_id/done",
+      name: "PraiseDone",
+      component: PraiseDone
     }
   ]
 });
