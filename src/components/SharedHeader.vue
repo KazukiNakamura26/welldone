@@ -61,11 +61,13 @@ import axios from 'axios'
 import firebase from 'firebase'
 export default {
 		name: 'SharedHeader',
+
 		data () {
 			return {
 				display:false,
 				result: [],
 				drawer: null,
+				result: "",
 				items: [
 					{ title: 'マイページ', icon: 'dashboard', tolink: '/mypage'},
 					{ title: 'About', icon: 'question_answer', tolink: '/about'}

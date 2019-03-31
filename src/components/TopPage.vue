@@ -138,7 +138,7 @@ export default {
         }).catch(function(error) {
             console.log("Error getting document:", error);
         });
-
+        
         const projectRef = firebase.firestore().collection("projects").add({
           "name": this.project_name,
           users: [userId]
@@ -176,6 +176,5 @@ export default {
 
       });
     })
-  }
 }
 </script>
