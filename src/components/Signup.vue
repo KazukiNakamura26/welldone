@@ -118,9 +118,7 @@ export default {
           const colref = firebase.firestore().collection("users")
 
           const saveData = {
-            name: this.name,
-            u_hidden: false,
-            u_remove: false
+            name: this.name
           }
 
           colref.doc(this.uid).set(saveData).then(res => {

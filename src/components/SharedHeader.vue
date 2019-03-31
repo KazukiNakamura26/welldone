@@ -6,7 +6,9 @@
 					<span class="font-weight-light">done</span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
+			<v-btn flat>{{ result.name }}</v-btn>
 			<v-btn
+					v-if = "display"
 					color="amber"
 					depressed
 					dark
@@ -43,6 +45,12 @@
 						<v-list-tile-title>{{ item.title }}</v-list-tile-title>
 					</v-list-tile-content>
 				</v-list-tile>
+				
+				<v-list-tile
+					@click="signOut">
+					<v-list-tile-action></v-list-tile-action>
+					<v-list-tile-title>サインアウト</v-list-tile-title>
+				</v-list-tile>
 			</v-list>
 		</v-navigation-drawer>
 	</header>
@@ -50,28 +58,44 @@
 
 <script>
 import axios from 'axios'
+import firebase from 'firebase'
 export default {
 		name: 'SharedHeader',
 
 		data () {
 			return {
+				display:false,
+				result: [],
 				drawer: null,
 				result: "",
 				items: [
-					{ title: this.result.name, icon: 'dashboard', tolink: '/mypage'},
-					{ title: 'Projects', icon: 'question_answer', tolink: '/projects'}
+					{ title: 'マイページ', icon: 'dashboard', tolink: '/mypage'},
+					{ title: 'About', icon: 'question_answer', tolink: '/about'}
 				]
 			}
 		},
-		async created() {
+		methods : {
+			  signOut: function () {
+      	firebase.auth().signOut().then(() => {
+				localStorage.removeItem('jwt')
+				this.display = false
+        this.$router.push('/signin')
+			})
+    },
+		},
+		created() {
+			if(localStorage.getItem('jwt') != null) {
+				this.display = true
+			}
+		},
+		async beforeCreate() {
     try {
-      await axios.get("https://welldone-api.herokuapp.com/private", {
+      await axios.get("http://localhost:3030/private", {
         headers: {'Authorization' : `Bearer ${localStorage.getItem('jwt')}`}
-      }).then(res => (this.result = res.data))
-      console.log(this.result)
+			}).then(res => (this.result = res.data))
     } catch(e) {
       console.error(e)
     }
-  }
+	}
 }
 </script>

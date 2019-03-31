@@ -4,17 +4,20 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+    <SharedFooter />
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/TopPage'
+import HelloWorld from '@/components/TopPage'
 import SharedHeader from '@/components/SharedHeader'
+import SharedFooter from '@/components/SharedFooter'
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    SharedHeader
+    SharedHeader,
+    SharedFooter
   },
   data () {
     return {

@@ -20,7 +20,6 @@ const config = {
 
 const settings = { timestampsInSnapshots: true };
 firebase.initializeApp(config);
-firebase.firestore().settings(settings);
 
 firebase.auth().onAuthStateChanged( user => {
   if (!app) {
