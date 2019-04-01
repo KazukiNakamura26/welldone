@@ -83,13 +83,19 @@ export default {
       this.$router.push("/project/" + this.project_id + "/praise");
     },
     addUser: function() {
+      console.log(this.toUser)
+      const userID = Object.keys(this.users.user_id).filter(key => {
+        return this.users[key].name === this.toUser
+      })
+      console.log(userID)
       const projectRef = firebase
         .firestore()
         .collection("projects")
         .doc(this.$route.params.project_id);
       projectRef.update({
-        users: firebase.firestore.FieldValue.arrayUnion()
+        users: firebase.firestore.FieldValue.arrayUnion(userID)
       });
+      this.dialog = false
     }
   },
   async beforeCreate() {
@@ -122,17 +128,15 @@ export default {
     });
     // ユーザー一覧を取得
     let usersList = [];
-    console.log("=======================")
     const userListRef = firebase
       .firestore()
       .collection("users");
     userListRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         usersList.push(doc.data().name)
+        this.users.push({userId:doc.id, name:doc.data().name})
       });
       this.user_name_list = usersList;
-      console.log("=======================")
-      console.log(this.user_name_list)
     });
     const projectUserRef = firebase
       .firestore()
