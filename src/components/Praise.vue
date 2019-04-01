@@ -66,8 +66,8 @@ export default {
       if (this.$refs.form.validate()) {
         const user = firebase.auth().currentUser;
         const praiseUserId = user.uid;
-        const userId = Object.keys(this.users).filter(key => {
-          return this.users[key] === this.toUser;
+        const userId = this.users.filter(key => {
+          return key.name === this.toUser;
         });
         const praiseRef = firebase
           .firestore()
@@ -77,7 +77,7 @@ export default {
             praise_txt: this.toMessage,
             praise_user_id: praiseUserId,
             project_id: this.$route.params.project_id,
-            user_id: userId
+            user_id: userId[0]["user_id"]
           })
           .then(docRef => {
             this.$router.push(
@@ -100,8 +100,6 @@ export default {
     const userId = user.uid;
 
     // ユーザー一覧を取得
-    let usersList = [];
-
     const projectRef = firebase
       .firestore()
       .collection("projects")
@@ -114,8 +112,7 @@ export default {
           .collection("users")
           .doc(doc.data().users[i]);
         userRef.get().then(doc => {
-          usersList.push({ user_id: doc.id, name: doc.data().name });
-          this.users = usersList;
+          this.users.push({ user_id: doc.id, name: doc.data().name });
           this.user_name_list.push(doc.data().name);
         });
       }

@@ -77,7 +77,10 @@ export default {
         .get("http://localhost:3030/private", {
           headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` }
         })
-        .then(res => (this.result = res.data));
+        .then(res => {
+          this.display = true;
+          this.result = res.data;
+        });
     } catch (e) {
       console.error(e);
     }

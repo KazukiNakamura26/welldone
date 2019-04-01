@@ -82,21 +82,6 @@ export default {
   methods: {
     signUp: function() {
       if (this.$refs.form.validate()) {
-        const userRef = firebase
-          .firestore()
-          .collection("users")
-          .where("name", "==", this.name);
-        userRef
-          .get()
-          .then(querySnapshot => {
-            querySnapshot.forEach(doc => {
-              this.error = "その名前はすでに使われています。";
-              return;
-            });
-          })
-          .catch(function(error) {
-            console.log("Error getting documents: ", error);
-          });
         firebase
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
