@@ -22,7 +22,7 @@
                       v-model="toUser"
                       :rules="toUserRules"
                       :items="user_name_list"
-                      label="褒める人を選ぼう！"
+                      label="ユーザーを追加"
                       outline
                       required
                     ></v-select>
@@ -83,19 +83,19 @@ export default {
       this.$router.push("/project/" + this.project_id + "/praise");
     },
     addUser: function() {
-      console.log(this.toUser)
-      const userID = Object.keys(this.users.user_id).filter(key => {
-        return this.users[key].name === this.toUser
-      })
-      console.log(userID)
+      console.log(this.toUser);
+      const userId = this.users.filter(key => {
+        return key.name === this.toUser;
+      });
+      console.log(userId);
       const projectRef = firebase
         .firestore()
         .collection("projects")
         .doc(this.$route.params.project_id);
       projectRef.update({
-        users: firebase.firestore.FieldValue.arrayUnion(userID)
+        users: firebase.firestore.FieldValue.arrayUnion(userId[0]["user_id"])
       });
-      this.dialog = false
+      this.dialog = false;
     }
   },
   async beforeCreate() {
@@ -128,33 +128,13 @@ export default {
     });
     // ユーザー一覧を取得
     let usersList = [];
-    const userListRef = firebase
-      .firestore()
-      .collection("users");
+    const userListRef = firebase.firestore().collection("users");
     userListRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        usersList.push(doc.data().name)
-        this.users.push({userId:doc.id, name:doc.data().name})
+        usersList.push(doc.data().name);
+        this.users.push({ userId: doc.id, name: doc.data().name });
       });
       this.user_name_list = usersList;
-    });
-    const projectUserRef = firebase
-      .firestore()
-      .collection("users")
-      .doc(this.$route.params.project_id);
-    projectUserRef.get().then(doc => {
-      this.project_name = doc.data().name;
-      for (let i = 0; i < doc.data().users.length; i++) {
-        const userRef = firebase
-          .firestore()
-          .collection("users")
-          .doc(doc.data().users[i]);
-        userRef.get().then(doc => {
-          usersList.push({ user_id: doc.id, name: doc.data().name });
-          this.users = usersList;
-          this.user_name_list.push(doc.data().name);
-        });
-      }
     });
   }
 };
