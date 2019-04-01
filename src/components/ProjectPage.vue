@@ -80,10 +80,12 @@ export default {
   },
   methods: {
     goToPraise: function() {
-      this.$router.push("/project/" + this.project_id + "/praise");
+      this.$router.push(
+        "/project/" + this.$route.params.project_id + "/praise"
+      );
     },
     addUser: function() {
-      const userId =this.users.filter(key => {
+      const userId = this.users.filter(key => {
         return key.name === this.toUser;
       });
       const projectRef = firebase
