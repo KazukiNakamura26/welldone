@@ -138,7 +138,7 @@ export default {
         }).catch(function(error) {
             console.log("Error getting document:", error);
         });
-        
+
         const projectRef = firebase.firestore().collection("projects").add({
           "name": this.project_name,
           users: [userId]
@@ -158,7 +158,7 @@ export default {
     const userId = user.uid
 
 // プロジェクト一覧を取得
-    let projects = [];  
+    let projects = [];
     const userRef = firebase.firestore().collection("projects").where('users', 'array-contains', userId);
     userRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
