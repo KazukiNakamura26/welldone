@@ -73,7 +73,6 @@ export default {
   },
   async beforeCreate() {
     this.display = true;
-    this.result = res.data;
   }
 };
 </script>

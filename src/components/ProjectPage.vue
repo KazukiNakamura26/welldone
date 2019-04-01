@@ -85,15 +85,19 @@ export default {
       );
     },
     addUser: function() {
-      const userId = this.users.filter(key => {
+      const projectUserId = this.users.filter(key => {
         return key.name === this.toUser;
       });
+      console.log(projectUserId);
+      console.log(projectUserId[0]["userId"]);
       const projectRef = firebase
         .firestore()
         .collection("projects")
         .doc(this.$route.params.project_id);
       projectRef.update({
-        users: firebase.firestore.FieldValue.arrayUnion(userId[0]["user_Id"])
+        users: firebase.firestore.FieldValue.arrayUnion(
+          projectUserId[0]["userId"]
+        )
       });
       this.dialog = false;
     }
