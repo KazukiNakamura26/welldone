@@ -158,7 +158,7 @@ export default {
     const userId = user.uid
 
 // プロジェクト一覧を取得
-    let projects = [];  
+    let projects = [];
     const userRef = firebase.firestore().collection("projects").where('users', 'array-contains', userId);
     userRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
