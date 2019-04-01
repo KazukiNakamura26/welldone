@@ -74,6 +74,11 @@ export default {
           }
         );
     }
+  },
+  async beforeCreate() {
+    if (localStorage.getItem("jwt")) {
+      this.$router.push("/");
+    }
   }
 };
 </script>
