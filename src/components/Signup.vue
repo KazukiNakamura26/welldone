@@ -28,7 +28,7 @@
                 :disabled="!valid"
                 outline
                 large
-                class="amber lighten-1 white--text font-weight-bold"
+                class="amber lighten-1 font-weight-bold"
                 @click="signUp"
               >SIGN UP</v-btn>
             </div>
