@@ -1,8 +1,6 @@
 <template>
   <v-container>
     {{project_name}}
-    {{user_name_list}}
-    {{users}}
     <v-layout row wrap>
       <v-flex lg12 md12 xs12 text-xs-center>
         <v-form v-model="valid" ref="form" lazy-validation>
