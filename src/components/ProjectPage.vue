@@ -83,17 +83,17 @@ export default {
       this.$router.push("/project/" + this.project_id + "/praise");
     },
     addUser: function() {
-      console.log(this.toUser)
-      const userID = Object.keys(this.users.user_id).filter(key => {
-        return this.users[key].name === this.toUser
-      })
-      console.log(userID)
+      console.log(this.users)
+      const userId =this.users.filter(key => {
+        return key.name === this.toUser;
+      });
+      console.log(userId[0]["user_Id"])
       const projectRef = firebase
         .firestore()
         .collection("projects")
         .doc(this.$route.params.project_id);
       projectRef.update({
-        users: firebase.firestore.FieldValue.arrayUnion(userID)
+        users: firebase.firestore.FieldValue.arrayUnion(userId[0]["user_Id"])
       });
       this.dialog = false
     }
@@ -134,7 +134,7 @@ export default {
     userListRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         usersList.push(doc.data().name)
-        this.users.push({userId:doc.id, name:doc.data().name})
+        this.users.push({user_Id: doc.id, name: doc.data().name })
       });
       this.user_name_list = usersList;
     });
