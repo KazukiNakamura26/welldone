@@ -122,7 +122,18 @@ export default {
     });
     // ユーザー一覧を取得
     let usersList = [];
-
+    console.log("=======================")
+    const userListRef = firebase
+      .firestore()
+      .collection("users");
+    userListRef.get().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        usersList.push(doc.data().name)
+      });
+      this.user_name_list = usersList;
+      console.log("=======================")
+      console.log(this.user_name_list)
+    });
     const projectUserRef = firebase
       .firestore()
       .collection("users")
