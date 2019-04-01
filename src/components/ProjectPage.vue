@@ -83,17 +83,15 @@ export default {
       this.$router.push("/project/" + this.project_id + "/praise");
     },
     addUser: function() {
-      console.log(this.toUser);
-      const userId = this.users.filter(key => {
+      const userId =this.users.filter(key => {
         return key.name === this.toUser;
       });
-      console.log(userId);
       const projectRef = firebase
         .firestore()
         .collection("projects")
         .doc(this.$route.params.project_id);
       projectRef.update({
-        users: firebase.firestore.FieldValue.arrayUnion(userId[0]["user_id"])
+        users: firebase.firestore.FieldValue.arrayUnion(userId[0]["user_Id"])
       });
       this.dialog = false;
     }
