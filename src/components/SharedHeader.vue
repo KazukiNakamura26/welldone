@@ -74,7 +74,7 @@ export default {
   async beforeCreate() {
     try {
       await axios
-        .get("http://localhost:3030/private", {
+        .get("https://welldone-api.herokuapp.com/private", {
           headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` }
         })
         .then(res => {
