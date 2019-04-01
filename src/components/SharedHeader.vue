@@ -66,11 +66,13 @@ export default {
         });
     }
   },
-  async beforeCreate() {
+  mounted() {
     if (localStorage.getItem("jwt") != null) {
       this.display = true;
     }
-    this.$router.push("/");
+  },
+  async beforeCreate() {
+    this.display = true;
   }
 };
 </script>
