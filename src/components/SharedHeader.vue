@@ -72,18 +72,8 @@ export default {
     }
   },
   async beforeCreate() {
-    try {
-      await axios
-        .get("https://welldone-api.herokuapp.com/private", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` }
-        })
-        .then(res => {
-          this.display = true;
-          this.result = res.data;
-        });
-    } catch (e) {
-      console.error(e);
-    }
+    this.display = true;
+    this.result = res.data;
   }
 };
 </script>
